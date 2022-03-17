@@ -13,22 +13,23 @@ let inventoriesData = JSON.parse(fs.readFileSync("./data/inventories.json"));
 app.listen(PORT);
 
 //******** API To POST/CREATE A Warehouse ******** */
-app.post("/upload", (req, res) => {
-  const newVideo = {
+app.post("/warehouse/add-new", (req, res) => {
+  const newWarehouse = {
     id: randomUUID(),
     warehouseName: req.body.warehouseId,
     streetAddress: req.body.streetAddress,
     city: req.body.city,
     country: req.body.country,
+    contact: {
     contactName: req.body.contactName,
     position: req.body.position,
     phoneNumber: req.body.phoneNumber,
     email: req.body.email,
+    }
   };
 
-  const fileContent = JSON.parse(fs.readFileSync("./data/video.json"));
-  fileContent.push(newVideo);
-  fs.writeFileSync("./data/video.json", JSON.stringify(fileContent));
-
-  res.status(201).json(newVideo);
+  const warehouseContent = JSON.parse(fs.readFileSync("./data/warehouse.json"));
+  warehouseContent.push(newWarehouse);
+  fs.writeFileSync("./data/warehouse.json", JSON.stringify(warehouseContent));
+  res.status(201).json(newWarehouse);
 });
