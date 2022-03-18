@@ -1,4 +1,5 @@
 /** @format */
+"use strict";
 
 require("dotenv").config();
 const { randomUUID } = require("crypto");
@@ -24,20 +25,21 @@ app.get("/randomId", (req, res) => {
 app.post("/warehouse/add-new", (req, res) => {
   const newWarehouse = {
     id: randomUUID(),
-    warehouseName: req.body.warehouseId,
+    warehouseName: req.body.warehouseName,
     streetAddress: req.body.streetAddress,
     city: req.body.city,
     country: req.body.country,
     contact: {
-      contactName: req.body.contactName,
-      position: req.body.position,
-      phoneNumber: req.body.phoneNumber,
-      email: req.body.email,
+      contactName: req.body.contact.contactName,
+      position: req.body.contact.position,
+      phoneNumber: req.body.contact.phoneNumber,
+      email: req.body.contact.email,
     },
   };
-
-  const warehouseContent = JSON.parse(fs.readFileSync("./data/warehouse.json"));
+  const warehouseContent = JSON.parse(
+    fs.readFileSync("./data/warehouses.json")
+  );
   warehouseContent.push(newWarehouse);
-  fs.writeFileSync("./data/warehouse.json", JSON.stringify(warehouseContent));
+  fs.writeFileSync("./data/warehouses.json", JSON.stringify(warehouseContent));
   res.status(201).json(newWarehouse);
 });
