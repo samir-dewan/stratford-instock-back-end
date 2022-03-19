@@ -9,12 +9,19 @@ const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-// let warehouseDataAll = JSON.parse(fs.readFileSync("./data/warehouse.json"));
-// let inventoriesData = JSON.parse(fs.readFileSync("./data/inventories.json"));
+const warehouseRouter = require("./routes/warehouses");
+const inventoryRouter = require("./routes/inventories");
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`App is listening on port ${PORT}`);
+});
+
 app.use(cors());
 app.use(express.json());
+
+app.use("/warehouses", warehouseRouter);
+
+app.use("/inventories", inventoryRouter);
 
 app.get("/randomId", (req, res) => {
   const newId = uniqid();
