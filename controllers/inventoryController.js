@@ -1,4 +1,7 @@
+/** @format */
+
 const inventory = require("../models/Inventory");
+const warehouse = require("../models/Warehouse");
 
 const listAllInventories = (_req, res) => {
   try {
@@ -32,8 +35,33 @@ const listInventoryByWarehouseId = (_req, res) => {
     });
   }
 };
+
+const postToWarehouse = (req, res) => {
+  try {
+    for (const key in req.body) {
+      if (req.body[key] == "") {
+        res
+          .status(401)
+          .json(
+            `errorMessage: have not posted to warehouse as ${key} doesn't have an input`
+          );
+      }
+    }
+    postInventory(req.body);
+    // console.log(req.body);
+    res
+      .status(201)
+      .json(`new inventory added to warehouse ${req.body.warehouseName}`);
+  } catch {
+    res
+      .status(401)
+      .json(`errorMessage: was not able to post to ${req.body.warehouseName}.`);
+  }
+};
+
 module.exports = {
   listAllInventories,
   listSingleInventory,
   listInventoryByWarehouseId,
+  postToWarehouse,
 };
