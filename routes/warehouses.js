@@ -5,5 +5,6 @@ const warehouseController = require("../controllers/warehouseController");
 router.get("/", warehouseController.listAllWarehouses);
 
 // Add additional get requests here
+router.get("/:warehouseId", warehouseController.listWarehouseAndInventoryById);
 
 module.exports = router;
