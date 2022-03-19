@@ -45,15 +45,15 @@ app.post("/warehouse/add-new", (req, res) => {
 });
 
 //******** API To POST/CREATE A Warehouse ******** */
-app.get("/:warehouseId", (req, res) => {
-  const warehouseId = req.params.warehouseId;
-  const fileContent = JSON.parse(fs.readFileSync("./data/warehouses.json"));
-  for (let i = 0; i < fileContent.length; i++) {
-    if (fileContent[i].id == warehouseId) {
-      res.status(200).send(fileContent[i]);
-    }
-  }
-});
+// app.get("/:warehouseId", (req, res) => {
+//   const warehouseId = req.params.warehouseId;
+//   const fileContent = JSON.parse(fs.readFileSync("./data/warehouses.json"));
+//   for (let i = 0; i < fileContent.length; i++) {
+//     if (fileContent[i].id == warehouseId) {
+//       res.status(200).send(fileContent[i]);
+//     }
+//   }
+// });
 
 app.delete("/:warehouseId", (req, res) => {
   const warehouseId = req.params.warehouseId;
