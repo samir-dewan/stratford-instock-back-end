@@ -29,11 +29,8 @@ getSingleInventory = (id) => {
 
 
 postInventory = (data) => {
-    console.log("in model");
     const readList = readData(inventoriesJSONPath);
-    console.log("I'm in ", readList);
     const currWarehouse = warehouses.find((warehouse) => warehouse.name === data.warehouseName);
-    console.log("posting with :", currWarehouse.id);
     const newItem = {
         id: uniqid(),
         warehouseID: currWarehouse.id,

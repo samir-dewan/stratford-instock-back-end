@@ -22,15 +22,12 @@ const listSingleInventory = (req, res) => {
 
 const postToWarehouse = (req, res) => {
     try {
-        console.log("in the controller");
             for (const key in req.body) {
-                console.log("key is ", key, "value is", req.body[key]);
                 if (req.body[key] == "") {
                     res.status(401).json(`errorMessage: have not posted to warehouse as ${key} doesn't have an input`)
                 }
             }
-        console.log("body is", req.body);
-        const newItem = postInventory(req.body);
+        postInventory(req.body);
         // console.log(req.body);
         res.status(201).json(`new inventory added to warehouse ${req.body.warehouseName}`)
     }
