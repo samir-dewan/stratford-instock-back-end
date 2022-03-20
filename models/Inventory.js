@@ -4,6 +4,7 @@ const { builtinModules } = require("module");
 const path = require("path");
 const uniqid = require("uniqid");
 const fs = require("fs");
+const { deleteInventory } = require("../controllers/inventoryController");
 const inventoriesJSONPath = path.join(__dirname, "../data/inventories.json");
 let inventories = require(inventoriesJSONPath);
 const warehousesJSONPath = path.join(__dirname, "../data/warehouses.json");
@@ -48,6 +49,16 @@ postInventory = (data) => {
   readList.push(newItem);
   writeData(readList);
   return newItem;
+};
+
+deleteInventoryByID = (id) => {
+  const readList = readData(inventoriesJSONPath);
+  const filteredInventory = readList.filter(
+    (inventory) => inventory.id !== id
+  );
+  // console.log(filteredInventory);
+  writeData(filteredInventory);
+  return filteredInventory;
 };
 
 module.exports = {
