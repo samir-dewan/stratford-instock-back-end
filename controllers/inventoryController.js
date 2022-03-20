@@ -35,7 +35,15 @@ const listInventoryByWarehouseId = (_req, res) => {
     });
   }
 };
-
+const deleteInventory = (req, res) => {
+  try{
+    const deletedInventories = deleteInventoryByID(req.body.id);
+    res.status(201).json(`${req.body.itemName} in ${req.body.warehouseName} has been removed from the inventories list`);
+  }
+  catch {
+    res.status(401).json(`was not able to delete ${req.body.itemName} in ${req.body.warehouseName} from inventories list.`);
+  }
+}
 const postToWarehouse = (req, res) => {
   try {
     for (const key in req.body) {
@@ -64,4 +72,5 @@ module.exports = {
   listSingleInventory,
   listInventoryByWarehouseId,
   postToWarehouse,
+  deleteInventory
 };
