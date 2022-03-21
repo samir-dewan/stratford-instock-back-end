@@ -39,8 +39,8 @@ postInventory = (data) => {
     const readList = readData(inventoriesJSONPath);
     if (data.status === "0") {
       data.status = "Out of stock";
-    } else if(data.status === "1") {
-      data.status = "In stock"
+    } else if (data.status === "1") {
+      data.status = "In stock";
     } else {
       return "Error: nothing in status, please fill in."
     }
@@ -50,16 +50,37 @@ postInventory = (data) => {
         warehouseID: currWarehouse.id,
         ...data
     }
-    console.log(newItem);
     readList.push(newItem);
     writeData(readList);
     return newItem;
 };
 
 
+editInventory = (id, data) => {
+  const readList = readData(inventoriesJSONPath);
+  if (data.status === "0") {
+      data.status = "Out of stock";
+    } else if (data.status === "1") {
+      data.status = "In stock";
+    } else {
+      return "Error: nothing in status, please fill in.";
+    };
+  const editedInventory = getSingleInventory(id);
+  for (key in editedInventory) {
+    if (editedInventory[key] !== data[key] && key !== "id" && key !== "warehouseID") {
+      editedInventory[key] = data[key];
+    }
+    }
+    readList.pop(getSingleInventory(id));
+    readList.push(editedInventory);
+    writeData(readList);
+  return editedInventory;
+}
+
 module.exports = {
   getAllInventories,
   getSingleInventory,
   getInventoryByWarehouseId,
   postInventory,
+  editInventory
 };

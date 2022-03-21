@@ -688,5 +688,15 @@
     "category": "Accessories",
     "status": "Out of Stock",
     "quantity": 0
+  },
+  {
+    "id": "853bcd65-b0b3-4f9c-844f-8b4133d7df6f",
+    "warehouseID": "bb1491eb-30e6-4728-a5fa-72f89feaf622",
+    "warehouseName": "Miami",
+    "itemName": "Soap",
+    "description": "Organic and hypoallergenic, this soap is safe to use for all skin types.",
+    "category": "Health",
+    "status": "Out of stock",
+    "quantity": "0"
   }
 ]

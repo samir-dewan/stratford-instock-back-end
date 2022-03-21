@@ -1,5 +1,4 @@
 /** @format */
-
 const router = require("express").Router();
 const inventoriesController = require("../controllers/inventoryController");
 
@@ -8,6 +7,7 @@ router.get("/", inventoriesController.listAllInventories);
 router.delete("/", inventoriesController.deleteInventory);
 // responds with a single inventory
 router.get("/:id", inventoriesController.listSingleInventory);
+router.put("/:id/edit", inventoriesController.editInventoryByID);
 router.post("/add", inventoriesController.postToInventoriesList);
 router.delete("/:id", inventoriesController.deleteInventory);
 // responds with the inventory of a warehouse by its warehouseID
