@@ -28,7 +28,33 @@ const listWarehouseAndInventoryById = (_req, res) => {
   }
 };
 
+const editWarehouseByID = (req, res) => {
+  try {
+    for (const key in req.body) {
+      if (req.body[key] == "") {
+        res
+          .status(401)
+          .json(
+            `errorMessage: have not posted to warehouse as ${key} doesn't have an input`
+          );
+      }
+    }
+    const edit = editWarehouse(req.params.warehouseId, req.body);
+    res
+      .status(201)
+      .json(`warehouse ${edit.name} under ID ${req.params.warehouseId} edited`);
+  } catch {
+    res
+      .status(401)
+      .json(
+        `errorMessage: was not able to edit ${req.body.itemName} (id is ${req.params.warehouseId}).`
+      );
+  }
+};
+
+
 module.exports = {
   listAllWarehouses,
   listWarehouseAndInventoryById,
+  editWarehouseByID
 };
