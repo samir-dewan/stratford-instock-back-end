@@ -4,7 +4,7 @@ const inventoriesController = require("../controllers/inventoryController");
 
 // responds with an array of all inventories
 router.get("/", inventoriesController.listAllInventories);
-router.delete("/", inventoriesController.deleteInventory);
+router.delete("/:inventoryId", inventoriesController.deleteInventory);
 // responds with a single inventory
 router.get("/:id", inventoriesController.listSingleInventory);
 router.put("/:id/edit", inventoriesController.editInventoryByID);
