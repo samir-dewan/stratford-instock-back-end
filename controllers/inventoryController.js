@@ -1,24 +1,28 @@
+/** @format */
+
 const inventory = require("../models/Inventory");
 const warehouse = require("../models/Warehouse");
 
 const listAllInventories = (_req, res) => {
-    try {
-        res.status(200).json(inventory.getAllInventories());
-        }
-    catch {
-        res.status(400).json({"errorMessage": "the list of inventories could not be retrieved."});
-    }
-}
+  try {
+    res.status(200).json(inventory.getAllInventories());
+  } catch {
+    res.status(400).json({
+      errorMessage: "the list of inventories could not be retrieved.",
+    });
+  }
+};
 
 const listSingleInventory = (req, res) => {
-    try {
-        inventory.getSingleInventory(req.params.id);
-        res.status(200).json(inventory.getSingleInventory(req.params.id));
-    }
-    catch {
-        res.status(400).json({"errorMessage": "the single inventory could not be found."});
-    }
-}
+  try {
+    inventory.getSingleInventory(req.params.id);
+    res.status(200).json(inventory.getSingleInventory(req.params.id));
+  } catch {
+    res
+      .status(400)
+      .json({ errorMessage: "the single inventory could not be found." });
+  }
+};
 
 const postToInventoriesList = (req, res) => {
     try {
@@ -30,14 +34,39 @@ const postToInventoriesList = (req, res) => {
         postInventory(req.body);
         // console.log(req.body);
         res.status(201).json(`new inventory added to warehouse ${req.body.warehouseName}`)
-    }
-    catch {
-        res.status(401).json(`errorMessage: was not able to post to ${req.body.warehouseName}.`);
-    }
-}
+        } catch {
+    res
+      .status(401)
+      .json(`errorMessage: was not able to post to ${req.body.warehouseName}.`);
+  }
+};
+
+const listInventoryByWarehouseId = (_req, res) => {
+  try {
+    res
+      .status(200)
+      .json(inventory.getInventoryByWarehouseId(_req.params.warehouseId));
+  } catch {
+    res.status(400).json({
+      errorMessage: `Inventory with warehouseID: ${_req.params.warehouseId} not found`,
+    });
+  }
+};
+
+const deleteInventory = (req, res) => {
+  try{
+    const deletedInventories = deleteInventoryByID(req.body.id);
+    res.status(201).json(`${req.body.itemName} in ${req.body.warehouseName} has been removed from the inventories list`);
+  }
+  catch {
+    res.status(401).json(`was not able to delete ${req.body.itemName} in ${req.body.warehouseName} from inventories list.`);
+  }
+};
 
 module.exports = {
   listAllInventories,
   listSingleInventory,
-  postToInventoriesList
+  postToInventoriesList,
+  listInventoryByWarehouseId,
+  deleteInventory
 };

@@ -1,7 +1,10 @@
+/** @format */
+
 const { builtinModules } = require("module");
 const path = require("path");
 const uniqid = require("uniqid");
 const fs = require("fs");
+const { deleteInventory } = require("../controllers/inventoryController");
 const inventoriesJSONPath = path.join(__dirname, "../data/inventories.json");
 let inventories = require(inventoriesJSONPath);
 const warehousesJSONPath = path.join(__dirname, "../data/warehouses.json");
@@ -13,20 +16,24 @@ const readData = (path) => {
 
 const writeData = (item) => {
   fs.writeFileSync(inventoriesJSONPath, JSON.stringify(item), "utf8", (err) => {
-      if (err) {
-          console.log("there has been an error in writing the data: ", err);
-      }
+    if (err) {
+      console.log("there has been an error in writing the data: ", err);
+    }
   });
-  console.log(`changes ${item} saved to file ${inventoriesJSONPath}.`)
+  console.log(`changes ${item} saved to file ${inventoriesJSONPath}.`);
 };
 
 getAllInventories = () => inventories;
 
 getSingleInventory = (id) => {
-    const currInventory = inventories.find((inventory) => inventory.id === id);
-        return currInventory;
-}
+  const currInventory = inventories.find((inventory) => inventory.id === id);
+  return currInventory;
+};
 
+getInventoryByWarehouseId = (id) => {
+  let arr = inventories.filter((item) => item.warehouseID === id);
+  return arr;
+};
 
 postInventory = (data) => {
     const readList = readData(inventoriesJSONPath);
@@ -47,10 +54,12 @@ postInventory = (data) => {
     readList.push(newItem);
     writeData(readList);
     return newItem;
-}
+};
+
 
 module.exports = {
   getAllInventories,
   getSingleInventory,
-  postInventory
+  getInventoryByWarehouseId,
+  postInventory,
 };
