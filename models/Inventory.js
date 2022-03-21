@@ -49,8 +49,35 @@ postInventory = (data) => {
     return newItem;
 }
 
+editInventory = (id, data) => {
+  const readList = readData(inventoriesJSONPath);
+  if (data.status === "0") {
+    data.status = "Out of stock";
+  } else if (data.status === "1") {
+    data.status = "In stock";
+  } else {
+    return "Error: nothing in status, please fill in.";
+  }
+  const editedInventory = getSingleInventory(id);
+  console.log(editedInventory);
+  for (key in editedInventory) {
+    if (editedInventory[key] !== data[key] && key !== "id" && key !== "warehouseID") {
+      editedInventory[key] = data[key];
+      console.log(editedInventory[key]);
+      console.log(data[key]);
+    }
+    }
+    readList.pop(getSingleInventory(id));
+    readList.push(editedInventory);
+    writeData(readList);
+  console.log(editedInventory);
+
+  
+  return editedInventory;
+}
 module.exports = {
   getAllInventories,
   getSingleInventory,
-  postInventory
+  postInventory,
+  editInventory
 };

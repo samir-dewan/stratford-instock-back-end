@@ -36,8 +36,24 @@ const postToInventoriesList = (req, res) => {
     }
 }
 
+const editInventoryByID = (req, res) => {
+  try {
+    for (const key in req.body) {
+      if (req.body[key] == "") {
+        res.status(401).json(`errorMessage: have not posted to warehouse as ${key} doesn't have an input`)
+      }
+    }
+    console.log("param.id is, ", req.params.id);
+    const edit = editInventory(req.params.id, req.body);
+    res.status(201).json(`inventory ${edit.itemName} under ID ${req.params.id} edited`)
+  }
+  catch {
+    res.status(401).json(`errorMessage: was not able to edit ${req.body.itemName} (id is ${req.params.id}).`);
+  }
+}
 module.exports = {
   listAllInventories,
   listSingleInventory,
-  postToInventoriesList
+  postToInventoriesList,
+  editInventoryByID
 };

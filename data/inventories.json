@@ -673,20 +673,10 @@
     "id": "eb647e6c-8673-4520-9155-3cec6f7a120d",
     "warehouseID": "bb1491eb-30e6-4728-a5fa-72f89feaf622",
     "warehouseName": "Miami",
-    "itemName": "Winter Jacket",
-    "description": "Made with a durable 100% waterproof shell, and breathable layers without a ton of vents and perforations. ",
-    "category": "Apparel",
-    "status": "Out of Stock",
-    "quantity": 0
-  },
-  {
-    "id": "4040cfae-39bb-403b-80fa-b770642800b6",
-    "warehouseID": "bb1491eb-30e6-4728-a5fa-72f89feaf622",
-    "warehouseName": "Miami",
-    "itemName": "Watch",
-    "description": "Crafted from premium materials including a full-grain leather strap and a stainless steel case, this watch features swiss movement and is waterproof up to 5 ATM.",
-    "category": "Accessories",
-    "status": "Out of Stock",
-    "quantity": 0
+    "itemName": "Bro",
+    "description": "Are you working",
+    "category": "Bro?",
+    "status": "Out of stock",
+    "quantity": "0"
   }
 ]
