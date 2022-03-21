@@ -11,7 +11,6 @@ const warehousesJSONPath = path.join(__dirname, "../data/warehouses.json");
 let warehouses = require(warehousesJSONPath);
 
 const readData = (path) => {
-  console.log("reading data...");
   return JSON.parse(fs.readFileSync(path));
 };
 
@@ -28,7 +27,6 @@ getAllInventories = () => inventories;
 
 getSingleInventory = (id) => {
   const currInventory = inventories.find((inventory) => inventory.id === id);
-  console.log("currInventory is", currInventory);
   return currInventory;
 };
 
@@ -52,7 +50,6 @@ postInventory = (data) => {
         warehouseID: currWarehouse.id,
         ...data
     }
-    console.log(newItem);
     readList.push(newItem);
     writeData(readList);
     return newItem;
@@ -60,21 +57,15 @@ postInventory = (data) => {
 
 
 editInventory = (id, data) => {
-  console.log(id);
   const readList = readData(inventoriesJSONPath);
-  console.log(readList);
   if (data.status === "0") {
       data.status = "Out of stock";
-      console.log("data.status is: ", data.status);
     } else if (data.status === "1") {
       data.status = "In stock";
-      console.log("data.status is: ", data.status);
     } else {
       return "Error: nothing in status, please fill in.";
     };
   const editedInventory = getSingleInventory(id);
-  console.log(editedInventory);
-  console.log("about to run the for loop");
   for (key in editedInventory) {
     if (editedInventory[key] !== data[key] && key !== "id" && key !== "warehouseID") {
       editedInventory[key] = data[key];
