@@ -1,10 +1,9 @@
 /** @format */
 
-const { builtinModules } = require("module");
+// const { builtinModules } = require("module");
 const path = require("path");
 const uniqid = require("uniqid");
 const fs = require("fs");
-const { deleteInventory } = require("../controllers/inventoryController");
 const inventoriesJSONPath = path.join(__dirname, "../data/inventories.json");
 let inventories = require(inventoriesJSONPath);
 const warehousesJSONPath = path.join(__dirname, "../data/warehouses.json");
@@ -23,64 +22,71 @@ const writeData = (item) => {
   console.log(`changes ${item} saved to file ${inventoriesJSONPath}.`);
 };
 
-getAllInventories = () => inventories;
+const getAllInventories = () => {
+  return inventories;
+};
 
-getSingleInventory = (id) => {
+const getSingleInventory = (id) => {
   const currInventory = inventories.find((inventory) => inventory.id === id);
   return currInventory;
 };
 
-getInventoryByWarehouseId = (id) => {
+const getInventoryByWarehouseId = (id) => {
   let arr = inventories.filter((item) => item.warehouseID === id);
   return arr;
 };
 
-postInventory = (data) => {
-    const readList = readData(inventoriesJSONPath);
-    if (data.status === "0") {
-      data.status = "Out of stock";
-    } else if (data.status === "1") {
-      data.status = "In stock";
-    } else {
-      return "Error: nothing in status, please fill in."
-    }
-    const currWarehouse = warehouses.find((warehouse) => warehouse.name === data.warehouseName);
-    const newItem = {
-        id: uniqid(),
-        warehouseID: currWarehouse.id,
-        ...data
-    }
-    readList.push(newItem);
-    writeData(readList);
-    return newItem;
-};
-
-
-editInventory = (id, data) => {
+const postInventory = (data) => {
   const readList = readData(inventoriesJSONPath);
   if (data.status === "0") {
-      data.status = "Out of stock";
-    } else if (data.status === "1") {
-      data.status = "In stock";
-    } else {
-      return "Error: nothing in status, please fill in.";
-    };
+    data.status = "Out of stock";
+  } else if (data.status === "1") {
+    data.status = "In stock";
+  } else {
+    return "Error: nothing in status, please fill in.";
+  }
+  const currWarehouse = warehouses.find(
+    (warehouse) => warehouse.name === data.warehouseName
+  );
+  const newItem = {
+    id: uniqid(),
+    warehouseID: currWarehouse.id,
+    ...data,
+  };
+  readList.push(newItem);
+  writeData(readList);
+  return newItem;
+};
+
+const editInventory = (id, data) => {
+  const readList = readData(inventoriesJSONPath);
+  if (data.status === "0") {
+    data.status = "Out of stock";
+  } else if (data.status === "1") {
+    data.status = "In stock";
+  } else {
+    return "Error: nothing in status, please fill in.";
+  }
   const editedInventory = getSingleInventory(id);
   for (key in editedInventory) {
-    if (editedInventory[key] !== data[key] && key !== "id" && key !== "warehouseID") {
+    if (
+      editedInventory[key] !== data[key] &&
+      key !== "id" &&
+      key !== "warehouseID"
+    ) {
       editedInventory[key] = data[key];
     }
-    }
-    readList.pop(getSingleInventory(id));
-    readList.push(editedInventory);
-    writeData(readList);
+  }
+  readList.pop(getSingleInventory(id));
+  readList.push(editedInventory);
+  writeData(readList);
   return editedInventory;
-}
+};
 
 module.exports = {
   getAllInventories,
   getSingleInventory,
   getInventoryByWarehouseId,
   postInventory,
-  editInventory
+  editInventory,
 };
