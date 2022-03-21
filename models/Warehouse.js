@@ -45,8 +45,12 @@ editWarehouse = (id, data) => {
       editedWarehouse[key] = data[key];
     }
   }
-  readList.pop(getWarehouseById(id));
-  readList.push(editedWarehouse);
+  for (let i = 0; i < readList.length; i++) {
+    if (readList[i].id == getWarehouseById(id).id) {
+      readList.splice(i, 1);
+      readList[i] = editedWarehouse;
+    }
+  }
   writeData(readList);
   return editedWarehouse;
 };
