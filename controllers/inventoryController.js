@@ -24,6 +24,23 @@ const listSingleInventory = (req, res) => {
   }
 };
 
+const postToInventoriesList = (req, res) => {
+    try {
+            for (const key in req.body) {
+                if (req.body[key] == "") {
+                    res.status(401).json(`errorMessage: have not posted to warehouse as ${key} doesn't have an input`)
+                }
+            }
+        postInventory(req.body);
+        // console.log(req.body);
+        res.status(201).json(`new inventory added to warehouse ${req.body.warehouseName}`)
+        } catch {
+    res
+      .status(401)
+      .json(`errorMessage: was not able to post to ${req.body.warehouseName}.`);
+  }
+};
+
 const listInventoryByWarehouseId = (_req, res) => {
   try {
     res
@@ -35,6 +52,7 @@ const listInventoryByWarehouseId = (_req, res) => {
     });
   }
 };
+
 const deleteInventory = (req, res) => {
   try{
     const deletedInventories = deleteInventoryByID(req.body.id);
@@ -43,34 +61,12 @@ const deleteInventory = (req, res) => {
   catch {
     res.status(401).json(`was not able to delete ${req.body.itemName} in ${req.body.warehouseName} from inventories list.`);
   }
-}
-const postToWarehouse = (req, res) => {
-  try {
-    for (const key in req.body) {
-      if (req.body[key] == "") {
-        res
-          .status(401)
-          .json(
-            `errorMessage: have not posted to warehouse as ${key} doesn't have an input`
-          );
-      }
-    }
-    postInventory(req.body);
-    // console.log(req.body);
-    res
-      .status(201)
-      .json(`new inventory added to warehouse ${req.body.warehouseName}`);
-  } catch {
-    res
-      .status(401)
-      .json(`errorMessage: was not able to post to ${req.body.warehouseName}.`);
-  }
 };
 
 module.exports = {
   listAllInventories,
   listSingleInventory,
+  postToInventoriesList,
   listInventoryByWarehouseId,
-  postToWarehouse,
   deleteInventory
 };

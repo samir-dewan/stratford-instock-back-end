@@ -36,30 +36,26 @@ getInventoryByWarehouseId = (id) => {
 };
 
 postInventory = (data) => {
-  const readList = readData(inventoriesJSONPath);
-  const currWarehouse = warehouses.find(
-    (warehouse) => warehouse.name === data.warehouseName
-  );
-  const newItem = {
-    id: uniqid(),
-    warehouseID: currWarehouse.id,
-    ...data,
-  };
-  console.log(newItem);
-  readList.push(newItem);
-  writeData(readList);
-  return newItem;
+    const readList = readData(inventoriesJSONPath);
+    if (data.status === "0") {
+      data.status = "Out of stock";
+    } else if(data.status === "1") {
+      data.status = "In stock"
+    } else {
+      return "Error: nothing in status, please fill in."
+    }
+    const currWarehouse = warehouses.find((warehouse) => warehouse.name === data.warehouseName);
+    const newItem = {
+        id: uniqid(),
+        warehouseID: currWarehouse.id,
+        ...data
+    }
+    console.log(newItem);
+    readList.push(newItem);
+    writeData(readList);
+    return newItem;
 };
 
-deleteInventoryByID = (id) => {
-  const readList = readData(inventoriesJSONPath);
-  const filteredInventory = readList.filter(
-    (inventory) => inventory.id !== id
-  );
-  // console.log(filteredInventory);
-  writeData(filteredInventory);
-  return filteredInventory;
-};
 
 module.exports = {
   getAllInventories,
