@@ -59,22 +59,17 @@ editInventory = (id, data) => {
     return "Error: nothing in status, please fill in.";
   }
   const editedInventory = getSingleInventory(id);
-  console.log(editedInventory);
   for (key in editedInventory) {
     if (editedInventory[key] !== data[key] && key !== "id" && key !== "warehouseID") {
       editedInventory[key] = data[key];
-      console.log(editedInventory[key]);
-      console.log(data[key]);
     }
     }
     readList.pop(getSingleInventory(id));
     readList.push(editedInventory);
     writeData(readList);
-  console.log(editedInventory);
-
-  
   return editedInventory;
 }
+
 module.exports = {
   getAllInventories,
   getSingleInventory,
