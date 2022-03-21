@@ -19,7 +19,7 @@ const writeData = (item) => {
       console.log("there has been an error in writing the data: ", err);
     }
   });
-  console.log(`changes ${item} saved to file ${inventoriesJSONPath}.`);
+  console.log(`changes saved to file ${inventoriesJSONPath}.`);
 };
 
 const getAllInventories = () => {
@@ -77,11 +77,28 @@ const editInventory = (id, data) => {
       editedInventory[key] = data[key];
     }
   }
-  readList.pop(getSingleInventory(id));
-  readList.push(editedInventory);
+  for (let i = 0; i < readList.length; i++) {
+    if(readList[i].id == getSingleInventory(id).id) {
+      readList.splice(i, 1);
+      readList[i] = editedInventory;
+    }
+  }
   writeData(readList);
   return editedInventory;
 };
+
+const deleteInventoryByID = (id) => {
+  console.log(id);
+  const readList = readData(inventoriesJSONPath);
+  const deletedInventory = getSingleInventory(id);
+  for (let i = 0; i < readList.length; i++) {
+    if (readList[i].id == getSingleInventory(id).id) {
+      readList.splice(i, 1);
+    }
+  }
+  writeData(readList);
+  return deletedInventory;
+}
 
 module.exports = {
   getAllInventories,
@@ -89,4 +106,5 @@ module.exports = {
   getInventoryByWarehouseId,
   postInventory,
   editInventory,
+  deleteInventoryByID
 };
