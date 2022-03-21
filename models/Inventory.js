@@ -30,6 +30,13 @@ getSingleInventory = (id) => {
 
 postInventory = (data) => {
     const readList = readData(inventoriesJSONPath);
+    if (data.status === "0") {
+      data.status = "Out of stock";
+    } else if(data.status === "1") {
+      data.status = "In stock"
+    } else {
+      return "Error: nothing in status, please fill in."
+    }
     const currWarehouse = warehouses.find((warehouse) => warehouse.name === data.warehouseName);
     const newItem = {
         id: uniqid(),

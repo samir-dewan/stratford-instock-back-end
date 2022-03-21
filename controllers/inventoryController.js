@@ -20,7 +20,7 @@ const listSingleInventory = (req, res) => {
     }
 }
 
-const postToWarehouse = (req, res) => {
+const postToInventoriesList = (req, res) => {
     try {
             for (const key in req.body) {
                 if (req.body[key] == "") {
@@ -39,5 +39,5 @@ const postToWarehouse = (req, res) => {
 module.exports = {
   listAllInventories,
   listSingleInventory,
-  postToWarehouse
+  postToInventoriesList
 };
