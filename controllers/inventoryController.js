@@ -55,11 +55,12 @@ const listInventoryByWarehouseId = (_req, res) => {
 
 const deleteInventory = (req, res) => {
   try{
-    const deletedInventories = deleteInventoryByID(req.body.id);
-    res.status(201).json(`${req.body.itemName} in ${req.body.warehouseName} has been removed from the inventories list`);
+    console.log(req.params.id);
+    const deletedInventories = inventory.deleteInventoryByID(req.params.id);
+    res.status(201).json(`${deletedInventories.itemName} in ${deletedInventories.warehouseName}, under id ${req.params.id}, has been deleted.`);
   }
   catch {
-    res.status(401).json(`was not able to delete ${req.body.itemName} in ${req.body.warehouseName} from inventories list.`);
+    res.status(401).json(`was not able to delete ${req.params.id} from inventories list.`);
   }
 };
 
@@ -70,7 +71,8 @@ const editInventoryByID = (req, res) => {
         res.status(401).json(`errorMessage: have not posted to warehouse as ${key} doesn't have an input`)
       }
     }
-    const edit = editInventory(req.params.id, req.body);
+    console.log("in controller for editinventorybyID");
+    const edit = inventory.editInventory(req.params.id, req.body);
     res.status(201).json(`inventory ${edit.itemName} under ID ${req.params.id} edited`);
   }
   catch {
