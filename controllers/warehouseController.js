@@ -39,7 +39,6 @@ const editWarehouseByID = (req, res) => {
           );
       }
     }
-    console.log("in the controller");
     const edit = editWarehouse(req.params.warehouseId, req.body);
     res
       .status(201)

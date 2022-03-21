@@ -35,13 +35,9 @@ editWarehouse = (id, data) => {
   console.log("in the model");
   const readList = readData(warehousesJSONPath);
   const editedWarehouse = getWarehouseById(id);
-  console.log(editedWarehouse);
   for (key in editedWarehouse) {
-    console.log(key);
     if (key == "contact") {
-      console.log("contact found");
       for (minikey in editedWarehouse[key]) {
-        console.log(minikey);
         editedWarehouse[key][minikey] = data[key][minikey];
       }
     }
@@ -49,11 +45,8 @@ editWarehouse = (id, data) => {
       editedWarehouse[key] = data[key];
     }
   }
-  console.log(editedWarehouse);
   readList.pop(getWarehouseById(id));
-  console.log("first readList is ", readList);
   readList.push(editedWarehouse);
-  console.log("edited readlist with: ", editedWarehouse, "reads as such: ", readList);
   writeData(readList);
   return editedWarehouse;
 };
