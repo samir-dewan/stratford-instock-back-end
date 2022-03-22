@@ -32,8 +32,8 @@ const getSingleInventory = (id) => {
 };
 
 const getInventoryByWarehouseId = (id) => {
-  let arr = inventories.filter((item) => item.warehouseID === id);
-  return arr;
+  let arr = inventories.find((item) => item.warehouseID === id);
+  return [arr];
 };
 
 const postInventory = (data) => {

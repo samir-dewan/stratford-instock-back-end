@@ -13,6 +13,7 @@ const listAllWarehouses = (_req, res) => {
 
 const listWarehouseAndInventoryById = (_req, res) => {
   try {
+    console.log(_req.params.warehouseId);
     let warehouses = warehouse.getWarehouseById(_req.params.warehouseId);
     let inventory = inventories.getInventoryByWarehouseId(
       _req.params.warehouseId
