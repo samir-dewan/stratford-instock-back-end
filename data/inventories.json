@@ -696,7 +696,7 @@
     "itemName": "Soap",
     "description": "Organic and hypoallergenic, this soap is safe to use for all skin types.",
     "category": "Health",
-    "status": "Out of Stock",
-    "quantity": 0
+    "status": "Out of stock",
+    "quantity": "0"
   }
 ]
