@@ -33,14 +33,14 @@ app.get("/randomId", (req, res) => {
 app.post("/warehouse/add-new", (req, res) => {
   const newWarehouse = {
     id: uniqid(),
-    warehouseName: req.body.warehouseName,
-    streetAddress: req.body.streetAddress,
+    name: req.body.name,
+    address: req.body.address,
     city: req.body.city,
     country: req.body.country,
     contact: {
-      contactName: req.body.contact.contactName,
+      name: req.body.contact.name,
       position: req.body.contact.position,
-      phoneNumber: req.body.contact.phoneNumber,
+      phone: req.body.contact.phone,
       email: req.body.contact.email,
     },
   };
@@ -57,8 +57,8 @@ app.get("/:warehouseId", (req, res) => {
   const warehouseId = req.params.warehouseId;
   const fileContent = JSON.parse(fs.readFileSync("./data/warehouses.json"));
   for (let i = 0; i < fileContent.length; i++) {
-	  console.log(fileContent[i]);
-	  console.log(warehouseId);
+    console.log(fileContent[i]);
+    console.log(warehouseId);
     if (fileContent[i].id == warehouseId) {
       res.status(200).send(fileContent[i]);
     }
