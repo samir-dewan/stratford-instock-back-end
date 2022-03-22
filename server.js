@@ -57,8 +57,6 @@ app.get("/:warehouseId", (req, res) => {
   const warehouseId = req.params.warehouseId;
   const fileContent = JSON.parse(fs.readFileSync("./data/warehouses.json"));
   for (let i = 0; i < fileContent.length; i++) {
-	  console.log(fileContent[i]);
-	  console.log(warehouseId);
     if (fileContent[i].id == warehouseId) {
       res.status(200).send(fileContent[i]);
     }
