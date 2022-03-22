@@ -21,7 +21,8 @@ getAllWarehouses = () => warehouses;
 
 getWarehouseById = (id) => {
   let warehouse = warehouses.find((warehouse) => id === warehouse.id);
-  return warehouse;
+  console.log(warehouse);
+  return [warehouse];
 };
 
 getWarehouseIDByName = (name) => {
